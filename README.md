@@ -1,4 +1,5 @@
 # pygrakn
+[![Build Status](https://travis-ci.org/devtty1er/pygrakn.svg?branch=ci)](https://travis-ci.org/devtty1er/pygrakn)
 
 A simplified interface built on top of the official grakn-python client.
 

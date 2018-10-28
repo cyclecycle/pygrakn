@@ -1,0 +1,16 @@
+language: python
+python:
+    - "3.6"
+before_install:
+    - sudo apt install -y unzip
+    - BROWSER_DOWNLOAD_URL=$(curl --silent https://api.github.com/repos/graknlabs/grakn/releases/latest | python -c "import sys; from json import loads as l; x = l(sys.stdin.read()); print(''.join(s['browser_download_url'] for s in x['assets']))");
+    - curl -fL $BROWSER_DOWNLOAD_URL -o /tmp/grakn.zip
+    - unzip /tmp/grakn.zip -d /tmp/ && rm /tmp/grakn.zip
+    - sudo ln -s /tmp/grakn*/grakn /usr/local/bin/
+    - sudo ln -s /tmp/grakn*/graql /usr/local/bin/
+    - grakn server start
+    - graql console -f /tmp/grakn*/examples/basic-genealogy.gql
+install:
+    -  pip install -r requirements.txt
+script:
+    - py.test --doctest-modules
