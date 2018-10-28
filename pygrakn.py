@@ -1,5 +1,4 @@
 import re
-from pprint import pprint
 import grakn
 
 
@@ -23,7 +22,6 @@ class Graph():
     def execute(self, query, **kwargs):
         query = query.replace('\n', ' ')
         query = MULTISPACE.sub(' ', query)
-        print(query)
         answer_iterator = self.tx.query(query)
         data = []
         try:
@@ -45,7 +43,6 @@ class Graph():
         }
         if grakn_objs:
             d['obj'] = concept
-        # print(dir(concept))
         if hasattr(concept, 'label'):
             d['label'] = concept.label()
         # if hasattr(concept, 'roles'):
@@ -118,7 +115,6 @@ class Graph():
                     'role': role,
                     'player': player
                 })
-        # print(concept)
         return d
 
     def __exit__(self, type, value, traceback):
